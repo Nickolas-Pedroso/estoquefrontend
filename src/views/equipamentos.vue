@@ -42,14 +42,12 @@
 </template>
 
 <script>
-import axios from 'axios'
+import api from '../services/api'
 import sideBar from '../components/sideBar.vue'
 import statsGrid from '../components/statsGrid.vue'
 import dispositivosTable from '../components/dispositivosTable.vue'
 import modalDetalhe from '../components/modalDetalhe.vue'
 import ModalForm from '../components/ModalForm.vue'
-
-const API = 'http://127.0.0.1:3000/api'
 
 export default {
   name: 'Equipamentos',
@@ -96,7 +94,7 @@ export default {
     async carregarDispositivos() {
       try {
         this.carregando = true
-        const response = await axios.get(`${API}/equipamentos`)
+        const response = await api.get('/equipamentos')
         this.dispositivos = response.data.map(d => ({
           id: d.id,
           numero: d.numero,
@@ -148,11 +146,11 @@ export default {
     async salvarDispositivo(dados) {
       try {
         if (dados.id) {
-          await axios.put(`${API}/equipamentos/${dados.id}`, dados)
+          await api.put(`/equipamentos/${dados.id}`, dados)
           const index = this.dispositivos.findIndex(d => d.id === dados.id)
           if (index !== -1) this.dispositivos.splice(index, 1, dados)
         } else {
-          const response = await axios.post(`${API}/equipamentos`, dados)
+          const response = await api.post('/equipamentos', dados)
           this.dispositivos.push({ ...dados, id: response.data.id })
         }
         this.modalFormAberto = false
@@ -165,7 +163,7 @@ export default {
     async excluirDispositivo(dispositivo) {
       if (!confirm(`Excluir o dispositivo de ${dispositivo.nome}?`)) return
       try {
-        await axios.delete(`${API}/equipamentos/${dispositivo.id}`)
+        await api.delete(`/equipamentos/${dispositivo.id}`)
         this.dispositivos = this.dispositivos.filter(d => d.id !== dispositivo.id)
       } catch (error) {
         console.error('Erro ao excluir dispositivo:', error)
@@ -229,5 +227,30 @@ export default {
 
 .btn-logout:hover {
   background: #f5f5f5;
+}
+
+/* MOBILE */
+@media (max-width: 768px) {
+  .main-content {
+    margin-left: 0;
+    padding: 12px;
+    padding-top: 70px;
+    padding-bottom: 80px;
+  }
+
+  .fab {
+    bottom: 20px;
+    right: 20px;
+    width: 46px;
+    height: 46px;
+    font-size: 20px;
+  }
+
+  .btn-logout {
+    top: 12px;
+    right: 12px;
+    font-size: 12px;
+    padding: 4px 10px;
+  }
 }
 </style>
