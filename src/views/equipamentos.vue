@@ -16,6 +16,7 @@
         @ver-detalhe="abrirDetalhe"
         @editar="abrirEdicao"
         @excluir="excluirDispositivo"
+        @atualizar="carregarDispositivos"
       />
     </div>
 
@@ -35,7 +36,6 @@
     />
 
     <button class="fab" @click="abrirNovoDispositivo">＋</button>
-    <button class="btn-refresh" @click="carregarDispositivos">⟳ Atualizar</button>
     <button class="btn-logout" @click="logout">Sair</button>
 
   </div>
@@ -210,22 +210,6 @@ export default {
   cursor: pointer;
   box-shadow: 0 4px 16px rgba(0,0,0,0.2);
   z-index: 200;
-}
-.btn-refresh {
-  position: fixed;
-  top: 16px;
-  right: 90px;
-  padding: 6px 14px;
-  background: transparent;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  cursor: pointer;
-  font-size: 13px;
-  color: #666;
-}
-
-.btn-refresh:hover {
-  background: #f5f5f5;
 }
 
 @media (max-width: 768px) {

@@ -32,6 +32,7 @@
       <div class="table-head">
         <span class="table-title">Inventário de Celulares</span>
         <span class="badge badge-green">{{ filtrados.length }} registros</span>
+        <button class="btn-refresh" @click="$emit('atualizar')">⟳ Atualizar</button>
       </div>
 
       <table>
@@ -132,7 +133,7 @@ const props = defineProps({
   total: Number,
 })
 
-defineEmits(['toggle-duplicados', 'ver-detalhe', 'editar', 'excluir'])
+defineEmits(['toggle-duplicados', 'ver-detalhe', 'editar', 'excluir', 'atualizar'])
 
 const busca            = ref('')
 const filtroOperadora  = ref('')
@@ -176,7 +177,23 @@ const paginados = computed(() => {
   margin-bottom: 20px;
   flex-wrap: wrap;
 }
+.btn-refresh {
+  margin-left: auto;
+  padding: 6px 14px;
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 12px;
+  color: var(--muted2);
+  transition: all 0.15s;
+}
 
+.btn-refresh:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: rgba(0,229,160,0.07);
+}
 .search-box { flex: 1; max-width: 380px; position: relative; }
 .search-box input {
   width: 100%;
