@@ -1,0 +1,134 @@
+/* RESET GERAL */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+/* ALTURA TOTAL - garante que o login fique centralizado sem scroll */
+html, body, #app {
+  height: 100%;
+}
+
+/* VARIÁVEIS DE COR E FONTE - usadas em todos os componentes */
+:root {
+  --bg: #0a0c10;           /* cor de fundo da página */
+  --surface: #111418;      /* fundo dos cards e painéis */
+  --surface2: #181c23;     /* fundo dos inputs e áreas internas */
+  --border: #1f2530;       /* cor das bordas */
+  --border2: #2a3040;      /* cor das bordas mais destacadas */
+  --accent: #00e5a0;       /* cor principal de destaque (verde) */
+  --accent2: #00b87a;      /* cor de destaque ao hover */
+  --warn: #f59e0b;         /* cor de aviso (amarelo) */
+  --danger: #ef4444;       /* cor de perigo (vermelho) */
+  --info: #3b82f6;         /* cor de informação (azul) */
+  --text: #e8ecf2;         /* cor do texto principal */
+  --muted: #6b7585;        /* cor do texto secundário */
+  --muted2: #9aa3b2;       /* cor do texto terciário */
+  --mono: 'DM Mono', monospace;   /* fonte para IMEI, CPF, números */
+  --sans: 'DM Sans', sans-serif;  /* fonte principal */
+  --display: 'Syne', sans-serif;  /* fonte para títulos e logo */
+}
+
+/* BODY - afeta todas as telas */
+body {
+  font-family: var(--sans);
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* SCROLLBAR PERSONALIZADA - afeta todas as telas */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: var(--surface); }
+::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--muted); }
+
+/* ANIMAÇÃO DE TRANSIÇÃO - usada ao abrir/fechar modais (ModalForm, modalDetalhe) */
+.fade-enter-active, .fade-leave-active { transition: opacity 0.2s, transform 0.2s; }
+.fade-enter-from, .fade-leave-to { opacity: 0; transform: scale(0.97); }
+
+/* BOTÕES - usados em todas as telas (dispositivosTable, ModalForm, modalDetalhe) */
+.btn {
+  display: inline-flex; align-items: center; gap: 7px;
+  padding: 8px 16px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  font-family: var(--sans);
+  font-size: 13px;
+  font-weight: 500;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+/* Botão principal verde - salvar, confirmar */
+.btn-primary { background: var(--accent); color: #000; }
+.btn-primary:hover { background: var(--accent2); transform: translateY(-1px); }
+
+/* Botão fantasma - cancelar, voltar, ações secundárias */
+.btn-ghost { background: transparent; color: var(--muted2); border: 1px solid var(--border2); }
+.btn-ghost:hover { border-color: var(--accent); color: var(--accent); background: rgba(0,229,160,0.04); }
+
+/* Botão de perigo - excluir dispositivo */
+.btn-danger { background: rgba(239,68,68,0.12); color: var(--danger); border: 1px solid rgba(239,68,68,0.25); }
+.btn-danger:hover { background: rgba(239,68,68,0.2); }
+
+/* Tamanhos de botão */
+.btn-sm { padding: 5px 11px; font-size: 12px; }  /* botão pequeno - usado na tabela */
+.btn-icon { padding: 8px; }                        /* botão só com ícone - editar/excluir na tabela */
+
+/* BADGES (etiquetas de status) - usados na dispositivosTable e modalDetalhe */
+.badge {
+  display: inline-flex; align-items: center; justify-content: center;
+  padding: 2px 9px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 600;
+  font-family: var(--mono);
+}
+.badge-green   { background: rgba(0,229,160,0.1); color: var(--accent); border: 1px solid rgba(0,229,160,0.2); }   /* termo assinado */
+.badge-warn    { background: rgba(245,158,11,0.1); color: var(--warn); border: 1px solid rgba(245,158,11,0.2); }    /* atenção */
+.badge-danger  { background: rgba(239,68,68,0.1); color: var(--danger); border: 1px solid rgba(239,68,68,0.2); }   /* termo pendente */
+.badge-info    { background: rgba(59,130,246,0.1); color: var(--info); border: 1px solid rgba(59,130,246,0.2); }   /* informação */
+.badge-neutral { background: rgba(107,117,133,0.15); color: var(--muted2); border: 1px solid var(--border); }      /* neutro */
+
+/* CHIPS DE OPERADORA - usados na dispositivosTable e modalDetalhe */
+.chip {
+  display: inline-flex; align-items: center; gap: 5px;
+  padding: 3px 10px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 500;
+}
+.chip-claro   { background: rgba(220,38,38,0.12); color: #f87171; border: 1px solid rgba(220,38,38,0.2); }     /* operadora Claro */
+.chip-vivo    { background: rgba(139,92,246,0.12); color: #a78bfa; border: 1px solid rgba(139,92,246,0.2); }   /* operadora Vivo */
+.chip-tim     { background: rgba(59,130,246,0.12); color: #60a5fa; border: 1px solid rgba(59,130,246,0.2); }   /* operadora TIM */
+.chip-oi      { background: rgba(245,158,11,0.12); color: #fbbf24; border: 1px solid rgba(245,158,11,0.2); }   /* operadora Oi */
+.chip-default { background: var(--surface2); color: var(--muted2); border: 1px solid var(--border); }          /* outras operadoras */
+
+/* FONTE MONO - usada para IMEI, CPF, número de telefone na tabela e modais */
+.mono { font-family: var(--mono); font-size: 12px; }
+
+/* INPUTS GLOBAIS - afeta todos os formulários (login, primeiroAcesso, ModalForm) */
+input[type=text], input[type=date], input[type=email],
+input[type=password], select, textarea {
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 9px 12px;
+  color: var(--text);
+  font-family: var(--sans);
+  font-size: 13px;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  width: 100%;
+}
+/* Borda verde ao focar no input */
+input:focus, select:focus, textarea:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(0,229,160,0.08);
+}
+input::placeholder, textarea::placeholder { color: var(--muted); }
+
+/* Textarea - usado no campo de observações do ModalForm */
+textarea { resize: vertical; min-height: 80px; }
+
+/* Input com fonte mono - usado para IMEI, CPF, número no ModalForm */
+.mono-input { font-family: var(--mono); }
